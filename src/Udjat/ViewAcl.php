@@ -22,11 +22,11 @@ class ViewAcl extends View
         $this->clusters = array(
             array(
                 'label' => 'Public Cluster A',
-                'key' => '/pub-clust-a',
+                'key' => 'pub-clust-a',
             ),
             array(
                 'label' => 'Private Cluster B',
-                'key' => '/priv-clust-b',
+                'key' => 'priv-clust-b',
             ),
         );
 
