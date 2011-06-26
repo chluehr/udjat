@@ -1,0 +1,3 @@
+#!/bin/bash
+UDJAT_URL=http://localhost/data/post/
+UDJAT_APIKEY=secret_key
