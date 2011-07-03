@@ -7,7 +7,7 @@ namespace Udjat\Ctrl;
  */
 class Rpx extends \Udjat\CtrlAbstract
 {
-    const RPX_API_KEY = 'a296fef33d223ec68236aa00eb53e87bcf8bf123';
+    const RPX_API_KEY = '';
 
     /**
      * @return void
