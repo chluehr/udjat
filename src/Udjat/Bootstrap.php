@@ -18,9 +18,8 @@ class Bootstrap
     {
 
         // convert namespace to full file path
-        $classFile = ROOT_PATH . DIRECTORY_SEPARATOR
+        $classFile = ROOT_PATH . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR
             .  str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
-
         if (!file_exists($classFile)) {
             return;
         }
@@ -38,7 +37,11 @@ class Bootstrap
         session_start();
         
         define(
-            'ROOT_PATH', realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR .'..')
+            'ROOT_PATH',
+            realpath(
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . '..'
+                . DIRECTORY_SEPARATOR . '..'
+            )
         );
 
         set_include_path(
@@ -60,5 +63,9 @@ class Bootstrap
         $mongoDb = $mongo->selectDB($database);
         Registry::getInstance()->setMongoDb($mongoDb);
 
+        $config = new Config();
+        $config->load(ROOT_PATH.'/etc/config.php');
+
+        Registry::getInstance()->setConfig($config);
     }
 }

@@ -7,13 +7,12 @@ namespace Udjat\Ctrl;
  */
 class Rpx extends \Udjat\CtrlAbstract
 {
-    const RPX_API_KEY = '';
-
     /**
      * @return void
      */
     public function indexAction()
     {
+        die (\Udjat\Registry::getInstance()->getConfig()->rpxApiKey);
     }
 
     /**
@@ -22,12 +21,10 @@ class Rpx extends \Udjat\CtrlAbstract
     public function tokenAction()
     {
 
-        //For a production script it would be better to include the apiKey in from a file outside the web root to enhance security.
-        $rpx_api_key = self::RPX_API_KEY;
+        $rpxApiKey = \Udjat\Registry::getInstance()->getConfig()->rpxApiKey;
 
         /* STEP 1: Extract token POST parameter */
         $token = $_POST['token'];
-
 
         if (strlen($token) != 40) {
 
@@ -37,7 +34,7 @@ class Rpx extends \Udjat\CtrlAbstract
         /* STEP 2: Use the token to make the auth_info API call */
         $post_data = array(
             'token'  => $token,
-            'apiKey' => $rpx_api_key,
+            'apiKey' => $rpxApiKey,
             'format' => 'json',
             'extended' => 'false'  //Extended is not available to Basic.
         );
@@ -87,21 +84,6 @@ class Rpx extends \Udjat\CtrlAbstract
                 $_SESSION['email'] = $auth_info['profile']['email'];
                 $_SESSION['user'] = $id;
                 $this->_redirect('/dashboard');
-
-
-
-                echo "\n auth_info:";
-                echo "\n"; var_dump($auth_info);
-
-
-                // profile][providerName => "Google"
-                // profile]["identifier": "https:\/\/www.google.com\/profiles\/116563369376278600467",
-                //profile]["email": "xris@farcaster.net"
-                
-                /* STEP 4: Use the identifier as the unique key to sign the user into your system.
-                   This will depend on your website implementation, and you should add your own
-                   code here. The user profile is in $auth_info.
-                */
 
             } else {
                 // Gracefully handle auth_info error.  Hook this into your native error handling system.

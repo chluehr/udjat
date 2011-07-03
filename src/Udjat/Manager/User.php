@@ -8,7 +8,7 @@ namespace Udjat\Manager;
 class User
 {
 
-    const COLLECTION_USER = 'user';
+    const COLLECTION = 'user';
     const PASSWORD_SALT = 'GUI5(6$F';
 
     /**
@@ -20,10 +20,16 @@ class User
     public function register($email, $password)
     {
 
+        if ($this->getIdByEmail($email) !== null) {
+
+            // user email exists!
+            return false;
+        }
+
         try {
             
             $mongoDb = \Udjat\Registry::getInstance()->getMongoDb();
-            $users = $mongoDb->selectCollection(self::COLLECTION_USER);
+            $users = $mongoDb->selectCollection(self::COLLECTION);
 
             $user = new \Udjat\Document\User();
             $user->email = $email;
@@ -50,7 +56,7 @@ class User
         try {
 
             $mongoDb = \Udjat\Registry::getInstance()->getMongoDb();
-            $users = $mongoDb->selectCollection(self::COLLECTION_USER);
+            $users = $mongoDb->selectCollection(self::COLLECTION);
 
             $user = new \Udjat\Document\User();
             $user->email = $email;
@@ -76,7 +82,7 @@ class User
     public function isValidUser($email, $password)
     {
         $mongoDb = \Udjat\Registry::getInstance()->getMongoDb();
-        $users = $mongoDb->selectCollection(self::COLLECTION_USER);
+        $users = $mongoDb->selectCollection(self::COLLECTION);
 
         $userFound = (
             $users->find(
@@ -92,14 +98,13 @@ class User
 
     /**
      * @param string $email
-     * @param string $password
      *
      * @return bool
      */
     public function getIdByEmail($email)
     {
         $mongoDb = \Udjat\Registry::getInstance()->getMongoDb();
-        $users = $mongoDb->selectCollection(self::COLLECTION_USER);
+        $users = $mongoDb->selectCollection(self::COLLECTION);
 
         $user = $users->find(
                 array(
@@ -125,7 +130,7 @@ class User
     public function getIdByIdentity($identity)
     {
         $mongoDb = \Udjat\Registry::getInstance()->getMongoDb();
-        $users = $mongoDb->selectCollection(self::COLLECTION_USER);
+        $users = $mongoDb->selectCollection(self::COLLECTION);
 
         $user = $users->find(
                 array(
