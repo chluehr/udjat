@@ -57,9 +57,7 @@ class Bootstrap
         // $dsn = "mongodb://${username}:${password}@${host}/${database}";
 
         $mongo = new \Mongo(); // @todo use config, use dsn for mongo connect
-
         $mongoDb = $mongo->selectDB($database);
-
         Registry::getInstance()->setMongoDb($mongoDb);
 
     }

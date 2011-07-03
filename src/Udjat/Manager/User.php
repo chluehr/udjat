@@ -39,6 +39,35 @@ class User
     }
 
     /**
+     * @param string $provider
+     * @param string $identity
+     * @param string $email
+     * @return bool
+     */
+    public function registerBySocial($provider, $identity, $email)
+    {
+
+        try {
+
+            $mongoDb = \Udjat\Registry::getInstance()->getMongoDb();
+            $users = $mongoDb->selectCollection(self::COLLECTION_USER);
+
+            $user = new \Udjat\Document\User();
+            $user->email = $email;
+            $user->provider = $provider;
+            $user->identity = $identity;
+            $users->insert((array)$user, array('safe'=>true));
+
+        } catch (MongoCursorException $exception) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /**
      * @param string $email
      * @param string $password
      *
@@ -75,6 +104,32 @@ class User
         $user = $users->find(
                 array(
                      'email'        => $email,
+                )
+            )->limit(1);
+
+        $id = null;
+
+        if ($user->hasNext()) {
+            $user->next();
+            $id = $user->key();
+        }
+        return $id;
+    }
+
+    /**
+     * @param string $email
+     * @param string $password
+     *
+     * @return bool
+     */
+    public function getIdByIdentity($identity)
+    {
+        $mongoDb = \Udjat\Registry::getInstance()->getMongoDb();
+        $users = $mongoDb->selectCollection(self::COLLECTION_USER);
+
+        $user = $users->find(
+                array(
+                     'identity'        => $identity,
                 )
             )->limit(1);
 

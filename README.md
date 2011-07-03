@@ -10,9 +10,9 @@ Requirements
 ------------
 
 * PHP 5.3+
-* mongoDb
-* PHP mongo pecl extension
-* Apache / mod_rewrite
+* mongoDb (sudo apt-get install mongodb)
+* PHP mongo pecl extension (sudo pecl install mongo)
+* Apache / mod_rewrite (sudo a2enmod rewrite)
 
 Installation
 ------------
@@ -38,6 +38,8 @@ Usage
 --------------
 
 * http://www.jqplot.com/ (Version 1.0.0b1_r746)
+* http://www.phpMoAdmin.com (for simple debugging during development)
+* Janrain social login
 
 Credits
 -------

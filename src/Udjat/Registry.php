@@ -13,6 +13,12 @@ class Registry
     protected $_mongoDb;
 
     /**
+     * @var Config
+     */
+    protected $_config;
+
+
+    /**
      * @var Registry
      */
     protected static $_instance = null;
@@ -45,4 +51,22 @@ class Registry
     {
         $this->_mongoDb = $mongoDb;
     }
+
+    /**
+     * @return Config
+     */
+    public function getConfig()
+    {
+        return $this->_config;
+    }
+
+    /**
+     * @param Config $config
+     * @return void
+     */
+    public function setConfig(Config $config)
+    {
+        $this->_config = $config;
+    }
+
 }

@@ -30,6 +30,7 @@
                             <tr>
                                 <td align="left">
                                     <a href="/account/lostpassword">Lost password</a>
+                                    <a class="rpxnow" onclick="return false;" href="https://monitoringrocks.rpxnow.com/openid/v2/signin?token_url=http%3A%2F%2Fudjat.local.basilicom.de%2Frpx%2Ftoken">Social Sign In</a>
                                 </td>
                                 <td align="right">
                                     <input name="login" value="Login »" tabindex="5" type="submit">
@@ -39,3 +40,14 @@
                         </table>
                     </form>
                 </div>
+
+
+<script type="text/javascript">
+  var rpxJsHost = (("https:" == document.location.protocol) ? "https://" : "http://static.");
+  document.write(unescape("%3Cscript src='" + rpxJsHost +
+"rpxnow.com/js/lib/rpx.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+  RPXNOW.overlay = true;
+  RPXNOW.language_preference = 'en';
+</script>
